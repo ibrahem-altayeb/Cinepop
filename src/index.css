@@ -1,0 +1,97 @@
+
+/* Your animations and custom CSS here */
+
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@keyframes turn-up {
+  0% {
+    transform: translateY(1px);
+  }
+ 
+  50% {
+    transform: translateY(-7px);
+  }
+  100%{
+    transform: translateY(1px);
+  }
+}
+
+.animate-turn-up {
+  animation: turn-up 2s ease-in-out infinite;
+}
+
+  
+
+  @keyframes save-movie {
+    0%{
+      transform: translateX(-12px);
+      
+    }
+ 100%{
+  transform: translateX(0);
+ }
+  }
+
+  .animate-save-movie {
+  animation: save-movie 1s ease-in-out ;
+}
+
+ @keyframes img-movie {
+  0% {
+    transform: translateY(0);
+    
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-20px);
+    border-radius: 70%;
+    opacity: 0.1;
+  }
+  100% {
+    
+    transform: translateY(-20px);
+    border-radius: 100%;
+    opacity: 0;
+  }
+}
+
+
+
+  .animate-img-movie {
+  animation: img-movie 0.9s ease-in-out  forwards ;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); 
+  }
+}
+
+.fadeInUp {
+  animation: fadeInUp 1s ease-out forwards;
+}
+@keyframes placeWords {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh); 
+ 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+     
+  }
+}
+
+.placeWords {
+  animation: placeWords 0.5s ease-out forwards;
+} 
+
