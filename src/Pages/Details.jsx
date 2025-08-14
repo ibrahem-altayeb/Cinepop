@@ -27,7 +27,7 @@ const Details = () => {
         setLoading(true);
         const data = await fetch(url, options);
         const response = await data.json();
-        console.log(response);
+       
 
         if (!response || !response.id) {
           throw new Error("Movie details not found");
