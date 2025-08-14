@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import GlobalState from "./Components/Context.jsx";
-import "./index.css"; // ✅ Tailwind CSS import
+import "./index.css"; 
 
 createRoot(document.getElementById("root")).render(
   <React.StrictMode>
