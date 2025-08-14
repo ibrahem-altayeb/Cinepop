@@ -10,16 +10,10 @@ import { FaSortDown } from "react-icons/fa";
 
 const NavLinks = ({ isMobile = false, onLinkClick }) => {
   const {
-    searchTerm,
-    input,
-    setTheme,
-    ClickHome,
-    updateSearchTerm,
-    openToggle,
-    setOpenToggle,
     setActiveNav,
-    activeNav, // Added activeNav
-    ScrollToTop, // Added ScrollToTop
+    activeNav,
+    ScrollToTop,
+    ClickHome,
   } = useContext(GlobalContext);
 
   const handleClick = (index, shouldClose = true) => {
@@ -92,11 +86,12 @@ const Navbar = () => {
     searchTerm,
     input,
     setTheme,
+    theme,
     ClickHome,
     updateSearchTerm,
     openToggle,
     setOpenToggle,
-    setActiveNav, // Added setActiveNav here
+    setActiveNav,
   } = useContext(GlobalContext);
 
   return (
@@ -152,6 +147,7 @@ const Navbar = () => {
         </div>
       </div>
 
+      {/* MOBILE MENU */}
       <div
         className={`lg:hidden fixed top-0 left-0 h-full w-64 bg-white dark:bg-zinc-800 z-50 shadow-lg transform transition-transform duration-300 ${
           openToggle ? "translate-x-0" : "-translate-x-full"
@@ -179,18 +175,15 @@ const Navbar = () => {
             />
           </div>
 
+          {/* MOBILE THEME TOGGLE BUTTON */}
           <div className="flex gap-3">
             <button
-              // onClick={toggleTheme}
-              className="text-purple-500 hover:text-purple-700 dark:text-zinc-400 dark:hover:text-white transition-colors duration-200"
+              onClick={() =>
+                setTheme(theme === "dark" ? "" : "dark")
+              }
+              className="flex items-center gap-2 text-purple-500 hover:text-purple-700 dark:text-zinc-400 dark:hover:text-white transition-colors duration-200"
             >
-              {/* Theme toggle icon or text can go here */}
-            </button>
-
-            <button
-              // onClick={toggleTheme}
-              className="text-purple-500 hover:text-purple-700 dark:text-zinc-400 dark:hover:text-white transition-colors duration-200"
-            >
+              {theme === "dark" ? <LuSun /> : <LuMoon />}
               Theme
             </button>
           </div>
