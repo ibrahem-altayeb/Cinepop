@@ -24,10 +24,10 @@ const Categories = ({ onSelect }) => {
     "War",
     "Music",
   ];
-  const commonCategories = [
-    { id: 0, name: "All" },
-    ...categories.filter((cat) => commonGenres.includes(cat.name)),
-  ];
+ const commonCategories = [
+  { id: 0, name: "All" },
+  ...(categories?.filter((cat) => commonGenres.includes(cat.name)) || []),
+];
 
   const handleCategoryClick = (cat) => {
     setShowCats(false);
