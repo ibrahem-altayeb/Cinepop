@@ -27,7 +27,7 @@ const MovieCard = ({ movie }) => {
             )}
           </div>
           <span className="flex gap-1">
-            <img src="/src/assets/star (1).svg" alt="star" />
+            <img src="./src/assets/star (1).svg" alt="star" />
             <p className="text-md text-purple-400">
               {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
             </p>
