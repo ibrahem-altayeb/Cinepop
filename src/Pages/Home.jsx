@@ -40,7 +40,7 @@ const Home = () => {
           className="fixed bottom-0 left-1/2 transform -translate-x-1/2 animate-turn-up w-8 h-8 p-2 bg-purple-400 rounded-full hover:bg-purple-500 transition duration-300 cursor-pointer shadow-lg z-50"
           onClick={ScrollToTop}
         >
-          <img src="/src/assets/angle-up.svg" alt="scroll to top" />
+          <img src="../src/assets/angle-up.svg" alt="scroll to top" />
         </div>
       )}
     </div>
