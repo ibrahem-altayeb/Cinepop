@@ -94,20 +94,20 @@ export default function GlobalState({ children }) {
   try {
     const data = await fetch(urlCt, options);
     if (!data.ok) {
-      // Handle HTTP errors like 401 here
+     
       const errorResponse = await data.json();
       console.error("API error:", errorResponse.status_message);
-      setCategories([]); // Or keep previous state
+      setCategories([]); 
       return;
     }
     const response = await data.json();
     setCategories(response.genres || []);
   } catch (error) {
     console.error("Error fetching categories:", error);
-    setCategories([]); // fallback to empty array
+    setCategories([]); 
   }
 };
-console.log("TMDB token:", myApi);
+
 
   const fetchMoviesByCategory = async (genreId) => {
     const urlMovies = `${API_BASE_URL}/discover/movie?with_genres=${genreId}&language=en`;

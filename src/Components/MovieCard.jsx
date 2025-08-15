@@ -9,7 +9,12 @@ const MovieCard = ({ movie }) => {
 
   return (
     <div>
-      <div className="flex flex-col w-60 overflow-hidden p-5 gap-5 rounded-2xl transition-transform duration-300 transform hover:-translate-y-2 hover:scale-102 hover:shadow-[0_3px_4px_rgba(168,85,247,0.3)]">
+      <div className="flex flex-col w-60 overflow-hidden p-5 gap-5 rounded-2xl 
+            border border-gray-200 dark:border-gray-900 
+            transition-all duration-300 transform 
+            hover:-translate-y-2 hover:scale-[1.02] 
+            hover:border-[#a855f7] 
+            hover:shadow-[0_3px_4px_rgba(168,85,247,0.3)]">
         <div className="flex justify-between items-center">
           <div
             className="text-purple-400 hover:text-purple-600 transition duration-300 ease-in-out"
