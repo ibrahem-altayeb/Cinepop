@@ -49,7 +49,11 @@ const MovieCard = ({ movie }) => {
           </div> */}
           <div className="h-70 overflow-hidden group rounded-2xl bg-transparent lg:mt-0 mt-4">
             <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                  : "/src/assets/no-movie (1).png"
+              }
               alt={movie.title}
               className="w-full h-full object-contain block duration-300"
             />
