@@ -1,3 +1,4 @@
+
 import { GlobalContext } from "../Components/Context";
 import { useContext } from "react";
 import MovieCard from "../Components/MovieCard";
@@ -21,13 +22,16 @@ const Home = () => {
         </div>
       )}
 
-      <div className="py-8 container mx-auto flex flex-wrap justify-center gap-10">
+      {/* Grid layout for responsive cards */}
+      <div className="py-8 px-4 max-w-[1280px] mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
         {movies.length === 0 ? (
-          <p className="text-7xl text-purple-400 font-bold flex font-serif italic justify-center items-center h-screen">
+          <p className="text-4xl text-purple-400 font-bold font-serif italic col-span-full text-center">
             No movies found
           </p>
         ) : (
-          movies.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+          movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
+          ))
         )}
       </div>
 
@@ -36,18 +40,15 @@ const Home = () => {
       </div>
 
       {scrollPage > 15 && (
-       <div
-  className="fixed bottom-4 left-1/2 transform -translate-x-1/2 animate-turn-up 
-             w-8 h-8 sm:w-10 sm:h-10 
-             flex items-center justify-center 
-             bg-purple-400 rounded-full hover:bg-purple-500 
-             transition duration-300 cursor-pointer shadow-lg z-50"
-  onClick={ScrollToTop}
->
-  <i className="fa-solid fa-angles-up text-white text-xs sm:text-base"></i>
-</div>
-
-
+        <div
+          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 animate-turn-up 
+                     w-10 h-10 flex items-center justify-center 
+                     bg-purple-400 rounded-full hover:bg-purple-500 
+                     transition duration-300 cursor-pointer shadow-lg z-50"
+          onClick={ScrollToTop}
+        >
+          <i className="fa-solid fa-angles-up text-white text-base"></i>
+        </div>
       )}
     </div>
   );

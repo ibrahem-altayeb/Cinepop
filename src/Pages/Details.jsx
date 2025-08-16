@@ -4,6 +4,8 @@ import { GlobalContext } from "../Components/Context";
 import { IoBookmarkOutline } from "react-icons/io5";
 import { IoBookmark } from "react-icons/io5";
 import { Circles } from "react-loader-spinner";
+import { motion } from "framer-motion";
+
 
 const Details = () => {
   const {
@@ -90,7 +92,15 @@ const Details = () => {
 
       <div className=" flex flex-col  lg:items-start items-center gap-4 text-purple-400">
         <h1>{details.original_title}</h1>
-        <h2 className="">{details.tagline}</h2>
+       <motion.div
+  initial={{ y: "100%", opacity: 0 }}
+  animate={{ y: 0, opacity: 1 }}
+  transition={{ delay: 0.2, duration: 0.3 }}
+  className="text-2xl lg:text-4xl max-w-[700px] mb-4 text-center lg:text-start"
+>
+  {details?.original_title}
+</motion.div>
+        
         <p>{details.overview}</p>
         <span>
           {details.release_date} {details.original_language}
