@@ -3,6 +3,8 @@ import { IoBookmarkOutline } from "react-icons/io5";
 import { IoBookmark } from "react-icons/io5";
 import { useContext } from "react";
 import { GlobalContext } from "./Context";
+import { AiFillStar } from "react-icons/ai";
+
 
 const MovieCard = ({ movie }) => {
   const { favorite, AddOrRemoveMovie } = useContext(GlobalContext);
@@ -27,7 +29,7 @@ const MovieCard = ({ movie }) => {
             )}
           </div>
           <span className="flex gap-1">
-            <img src="../src/assets/star (1).svg" alt="star" />
+            <AiFillStar size={24} color="gold" />
             <p className="text-md text-purple-400">
               {movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
             </p>

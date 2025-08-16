@@ -95,6 +95,8 @@ const Details = () => {
         <span>
           {details.release_date} {details.original_language}
         </span>
+        {details?.runtime != null ? `${Math.floor(details.runtime / 60)}h ${details.runtime % 60}m` : "Runtime unknown"}
+
         <div
           className="flex items-center  mt-1.5  hover:text-purple-600 transition duration-300 ease-in-out"
           onClick={() => AddOrRemoveMovie(details)}
