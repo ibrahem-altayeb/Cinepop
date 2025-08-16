@@ -4,15 +4,30 @@ import { GrFormNext } from "react-icons/gr";
 import { GlobalContext } from "./Context";
 
 function Pagination() {
-  const { page, totalPages, NextPage, previousPage, goToPage, movies } =
+  const { page, totalPages, NextPage, previousPage, goToPage, movies, ScrollToTop } =
     useContext(GlobalContext);
+
+  const handlePrevious = () => {
+    previousPage();
+    ScrollToTop();
+  };
+
+  const handleNext = () => {
+    NextPage();
+    ScrollToTop();
+  };
+
+  const handleGoToPage = (p) => {
+    goToPage(p);
+    ScrollToTop();
+  };
 
   return (
     <div className="flex justify-end items-center gap-2 mt-6">
       {page > 1 && (
         <IoChevronBackSharp
-          onClick={previousPage}
-          className="w-10 h-10 text-purple-500 hover:text-purple-600 rounded-full cursor-pointer "
+          onClick={handlePrevious}
+          className="w-10 h-10 text-purple-500 hover:text-purple-600 rounded-full cursor-pointer"
         />
       )}
 
@@ -21,7 +36,7 @@ function Pagination() {
         .map((p) => (
           <button
             key={p}
-            onClick={() => goToPage(p)}
+            onClick={() => handleGoToPage(p)}
             className={`px-4 py-2 rounded-full ${
               p === page
                 ? "bg-purple-600 text-white"
@@ -34,7 +49,7 @@ function Pagination() {
 
       {page < totalPages && movies.length > 0 && (
         <GrFormNext
-          onClick={NextPage}
+          onClick={handleNext}
           className="w-12 h-12 text-purple-500 hover:text-purple-600 rounded-full cursor-pointer"
         />
       )}
