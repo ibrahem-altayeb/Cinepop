@@ -47,20 +47,20 @@ const MovieCard = ({ movie }) => {
               src={
                 movie.poster_path
                   ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                  : "/src/assets/no-movie (1).png"
+                  : "/src/assets/no-movie.png"
               }
               alt={movie.title}
               className="w-full h-full object-cover transition duration-300"
             />
           </div>
 
-          <h1 className="mt-3 text-sm font-semibold text-purple-500 truncate hover:text-purple-600 transition">
+          <h1 className="mt-3 text-sm font-semibold text-black dark:text-white/75 truncate hover:text-purple-600 transition">
             {movie.title}
           </h1>
 
         
         <div className="flex justify-center mt-2">
-  <p className="inline-block bg-purple-600 text-white px-3 py-1 rounded-md text-xs font-medium text-center uppercase tracking-wider hover:bg-purple-700 transition whitespace-nowrap">
+  <p className="inline-block bg-purple-600 text-black dark:text-white/75  px-3 py-1 rounded-md text-xs font-medium text-center uppercase tracking-wider hover:bg-purple-700 transition whitespace-nowrap">
     More Details
   </p>
 </div>
