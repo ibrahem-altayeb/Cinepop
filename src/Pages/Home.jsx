@@ -41,8 +41,8 @@ const Home = () => {
 
       {scrollPage > 15 && (
         <div
-          className="fixed bottom-4 left-1/2 transform -translate-x-1/2 animate-turn-up 
-                     w-10 h-10 flex items-center justify-center 
+          className="fixed bottom-1  left-1/2 transform -translate-x-1/2 animate-turn-up 
+                     w-7 h-7  flex items-center justify-center 
                      bg-purple-400 rounded-full hover:bg-purple-500 
                      transition duration-300 cursor-pointer shadow-lg z-50"
           onClick={ScrollToTop}
