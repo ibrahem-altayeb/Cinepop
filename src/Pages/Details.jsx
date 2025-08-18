@@ -5,7 +5,7 @@ import { IoBookmarkOutline } from "react-icons/io5";
 import { IoBookmark } from "react-icons/io5";
 import { Circles } from "react-loader-spinner";
 import { motion } from "framer-motion";
-
+import { AiFillStar } from "react-icons/ai";
 
 const Details = () => {
   const {
@@ -91,7 +91,7 @@ const Details = () => {
       </div> */}
 
       <div className=" flex flex-col  lg:items-start items-center gap-4 text-purple-400">
-        <h1>{details.original_title}</h1>
+       
        <motion.div
   initial={{ y: "100%", opacity: 0 }}
   animate={{ y: 0, opacity: 1 }}
@@ -102,28 +102,40 @@ const Details = () => {
 </motion.div>
         
         <p>{details.overview}</p>
-        <span>
+        <div className="flex justify-between items-center mt-4 w-full">
+
+        <span className="flex items-center gap-1">
+                    <AiFillStar size={20} className="text-yellow-400" />
+                    <p className="text-sm text-purple-400 font-medium">
+                      {details.vote_average ? details.vote_average.toFixed(1) : "N/A"} / 10 
+                    </p>
+                  </span>
+        <span >
           {details.release_date} {details.original_language}
         </span>
         {details?.runtime != null ? `${Math.floor(details.runtime / 60)}h ${details.runtime % 60}m` : "Runtime unknown"}
+        </div>
 
         <div
-          className="flex items-center  mt-1.5  hover:text-purple-600 transition duration-300 ease-in-out"
-          onClick={() => AddOrRemoveMovie(details)}
-        >
-          {favorite.findIndex((item) => item.id === details.id) === -1 ? (
-            <IoBookmarkOutline size={35} color="purple" />
-          ) : (
-            <div className=" flex items-center gap-4">
-              <IoBookmark size={35} color="purple" />
-              {visible && (
-                <span className="text-purple-400 text-md rounded-lg animate-save-movie italic tracking-wider transition duration-300 ease-in-out">
-                  save to collection
-                </span>
-              )}
-            </div>
-          )}
-        </div>
+  className="relative flex items-center mt-1.5 hover:text-purple-600 transition duration-300 ease-in-out cursor-pointer"
+  onClick={() => AddOrRemoveMovie(details)}
+>
+  {favorite.findIndex((item) => item.id === details.id) === -1 ? (
+    <IoBookmarkOutline size={35} color="purple" />
+  ) : (
+    <>
+      <IoBookmark size={35} color="purple" />
+      <span
+        className={`absolute left-full ml-2 text-purple-400 text-md rounded-lg italic tracking-wider whitespace-nowrap
+          ${visible ? 'opacity-100 animate-save-movie' : 'opacity-0'}
+        `}
+      >
+        save to collection
+      </span>
+    </>
+  )}
+</div>
+
 
         <div className="fixed left-4 top-1/2 transform -translate-y-1/2 hover:text-purple-600 transition duration-300 ease-in-out">
           <Link to={"/"}>

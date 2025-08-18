@@ -15,10 +15,10 @@ const MovieCard = ({ movie }) => {
             transition-all duration-300 transform 
             hover:-translate-y-2 hover:scale-[1.02] 
             hover:border-purple-500 
-            shadow-[0_2px_8px_rgba(168,85,247,0.15)] 
-            dark:shadow-[0_2px_8px_rgba(168,85,247,0.25)] 
-            hover:shadow-[0_4px_16px_rgba(168,85,247,0.35)] 
-            dark:hover:shadow-[0_4px_16px_rgba(168,85,247,0.45)]">
+             shadow-[0_4px_12px_rgba(168,85,247,0.5)]
+  dark:shadow-[0_2px_8px_rgba(168,85,247,0.25)]
+  hover:shadow-[0_6px_20px_rgba(168,85,247,0.7)]
+  dark:hover:shadow-[0_4px_16px_rgba(168,85,247,0.45)]">
 
         
         <div className="flex justify-between items-center">
@@ -54,13 +54,13 @@ const MovieCard = ({ movie }) => {
             />
           </div>
 
-          <h1 className="mt-3 text-sm font-semibold text-black dark:text-white/75 truncate hover:text-purple-600 transition">
+          <h1 className="mt-3 text-sm font-semibold text-purple-500 dark:text-white/75 truncate hover:text-purple-600 transition">
             {movie.title}
           </h1>
 
         
         <div className="flex justify-center mt-2">
-  <p className="inline-block bg-purple-600 text-black dark:text-white/75  px-3 py-1 rounded-md text-xs font-medium text-center uppercase tracking-wider hover:bg-purple-700 transition whitespace-nowrap">
+  <p className="inline-block bg-purple-600 text-white dark:text-white/75  px-3 py-1 rounded-md text-xs font-medium text-center uppercase tracking-wider hover:bg-purple-700 transition whitespace-nowrap">
     More Details
   </p>
 </div>

@@ -49,6 +49,8 @@ export default function GlobalState({ children }) {
       Authorization: `Bearer ${myApi}`,
     },
   };
+  
+  
 
   const ScrollToTop = () => {
     window.scrollTo({
