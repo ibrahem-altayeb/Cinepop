@@ -1,12 +1,12 @@
 import { useContext, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { GlobalContext } from "../Components/Context";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { Circles } from "react-loader-spinner";
 import { motion } from "framer-motion";
 import { AiFillStar } from "react-icons/ai";
 import { FaClock, FaCalendarAlt } from "react-icons/fa";
- import { useNavigate } from "react-router-dom";
+
 const Details = () => {
   const {
     API_BASE_URL,
@@ -23,6 +23,7 @@ const Details = () => {
 
   const { id } = useParams();
   const url = `${API_BASE_URL}/movie/${id}`;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -30,57 +31,41 @@ const Details = () => {
         setLoading(true);
         const res = await fetch(url, options);
         const data = await res.json();
-
         if (!data || !data.id) throw new Error("Movie details not found");
-
         setDetails(data);
-        setLoading(false);
       } catch (error) {
         console.error("Error fetching movie details:", error);
+      } finally {
         setLoading(false);
       }
     };
 
     fetchMovieDetails();
-  }, []);
+  }, [id]);
 
-  // Shared Back Button
-
-
-const BackButton = () => {
-  const navigate = useNavigate();
-
-  return (
+  const BackButton = () => (
     <div
       className="fixed left-4 top-1/2 transform -translate-y-1/2 text-purple-500 hover:text-purple-600 transition duration-300 ease-in-out cursor-pointer"
-      onClick={() => navigate(-1)} // Go back to previous page
+      onClick={() => navigate(-1)}
     >
       <i className="fa-solid fa-chevron-left lg:text-6xl md:text-4xl sm:text-3xl"></i>
     </div>
   );
-};
 
-  // Loading Spinner
   if (loading) {
     return (
       <div className="h-screen w-full flex justify-center items-center">
-        <Circles
-          height={"120"}
-          width={"120"}
-          color="rgb(130, 50, 200)"
-          visible={true}
-        />
+        <Circles height={"120"} width={"120"} color="rgb(130, 50, 200)" visible={true} />
       </div>
     );
   }
 
-  // Fallback if details missing
   if (!details.poster_path || !details.original_title || !details.overview) {
     return (
       <>
         <BackButton />
         <div>
-          <p className="lg:text-4xl text-xl text-purple-400 font-bold flex font-serif italic justify-center items-center h-screen placeWords">
+          <p className="lg:text-4xl text-xl text-purple-400 font-bold flex font-serif italic justify-center items-center h-screen">
             Oops! Something went wrong. Please try again later.
           </p>
         </div>
@@ -88,7 +73,6 @@ const BackButton = () => {
     );
   }
 
-  // Render Movie Details
   return (
     <div className="relative grid lg:grid-cols-2 grid-cols-1 gap-10 text-white container mx-auto lg:p-20">
       {imgVisible && (
@@ -132,9 +116,8 @@ const BackButton = () => {
 
         <div className="flex justify-between items-center flex-wrap gap-4 mt-3 w-full text-purple-500 font-medium text-xs sm:text-sm lg:text-base whitespace-nowrap">
           <p className="flex items-center gap-1 shrink-0">
-            {details.genres[0]?.name || "Unknown Genre"}
+            {details.genres?.[0]?.name || "Unknown Genre"}
           </p>
-
           <div className="flex items-center gap-1 shrink-0">
             <FaClock className="text-purple-600 text-sm" />
             <p>
@@ -143,17 +126,12 @@ const BackButton = () => {
                 : "Runtime unknown"}
             </p>
           </div>
-
           <div className="flex items-center gap-1 shrink-0">
             <FaCalendarAlt className="text-purple-600 text-sm" />
             <p>{details.release_date || "Unknown Date"}</p>
           </div>
-
           <span className="text-purple-400 text-sm shrink-0">|</span>
-
-          <p className="uppercase shrink-0">
-            {details.original_language || "N/A"}
-          </p>
+          <p className="uppercase shrink-0">{details.original_language || "N/A"}</p>
         </div>
 
         <div
