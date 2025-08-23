@@ -27,33 +27,38 @@ const NavLinks = ({ isMobile = false, onLinkClick }) => {
 
   return (
     <ul
-      className={`flex ${
+      className={`flex relative ${
         isMobile
           ? "flex-col gap-5 mb-10 text-purple-400"
           : "items-center gap-5 text-purple-400"
       }`}
     >
       <NavLink to="/" onClick={ClickHome}>
-        <li
-          onClick={() => handleClick(0)}
-          className={`${commonClasses} ${
-            activeNav === 0
-              ? "bg-purple-100 text-purple-700"
-              : "text-purple-400 hover:text-purple-700"
-          }`}
-        >
-          {isMobile && <IoHomeOutline className="text-xl" />}
-          Home
-        </li>
-      </NavLink>
+  <li
+    onClick={() => handleClick(0)}
+    className={`relative group px-4 py-2 ${commonClasses} ${
+      activeNav === 0
+        ? "bg-purple-100 text-purple-700"
+        : "text-purple-400 hover:text-purple-700"
+    }`}
+  >
+    {isMobile && <IoHomeOutline className="text-xl" />}
+    Home
+
+    {/* Full-width underline, only on lg and up */}
+   <div className="hidden lg:block absolute bottom-[-17px] left-1/2 -translate-x-1/2 h-[2px] w-full bg-purple-700 origin-center scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 transition-all duration-300 ease-in-out" />
+
+  </li>
+</NavLink>
+
 
       <li
         onClick={() => handleClick(1, false)}
-        className={`${commonClasses} ${
-          activeNav === 1
-            ? "bg-purple-100 text-purple-700"
-            : "text-purple-400 hover:text-purple-700"
-        }`}
+        className={`relative group px-4 py-2 ${commonClasses} ${
+      activeNav === 1
+        ? "bg-purple-100 text-purple-700"
+        : "text-purple-400 hover:text-purple-700"
+    }`}
       >
         {isMobile && <FaSortDown className="text-xl" />}
         <Categories
@@ -62,19 +67,23 @@ const NavLinks = ({ isMobile = false, onLinkClick }) => {
             ScrollToTop();
           }}
         />
+       <div className="hidden lg:block absolute bottom-[-17px] left-1/2 -translate-x-1/2 h-[2px] w-full bg-purple-700 origin-center scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 transition-all duration-300 ease-in-out" />
+
       </li>
 
       <NavLink to="/favorites">
         <li
           onClick={() => handleClick(2)}
-          className={`${commonClasses} ${
-            activeNav === 2
-              ? "bg-purple-100 text-purple-700"
-              : "text-purple-400 hover:text-purple-700"
-          }`}
+          className={`relative group px-4 py-2 ${commonClasses} ${
+      activeNav === 2
+        ? "bg-purple-100 text-purple-700"
+        : "text-purple-400 hover:text-purple-700"
+    }`}
         >
           {isMobile && <BsBookmarkHeartFill className="text-xl" />}
           Favorites
+          <div className="hidden lg:block absolute bottom-[-17px] left-1/2 -translate-x-1/2 h-[2px] w-full bg-purple-700 origin-center scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 transition-all duration-300 ease-in-out" />
+
         </li>
       </NavLink>
     </ul>
