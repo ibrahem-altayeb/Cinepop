@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Pages/Home";
 import Favorites from "./Pages/Favorites";
 import Details from "./Pages/Details";
@@ -19,12 +19,14 @@ const App = () => {
     >
       <Navbar />
       <ScrollToTop />
-     <Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/favorites" element={<Favorites />} />
-  <Route path="/movie/:id" element={<Details />} />
-  <Route path="/favorites/:id" element={<Details />} />
-</Routes>
+      <Routes>
+        {/* Redirect from / to /movies */}
+        <Route path="/" element={<Navigate to="/movies" replace />} />
+        <Route path="/movies" element={<Home />} />
+        <Route path="/favorites" element={<Favorites />} />
+        <Route path="/movie/:id" element={<Details />} />
+        <Route path="/favorites/:id" element={<Details />} />
+      </Routes>
     </div>
   );
 };
