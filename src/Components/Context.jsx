@@ -1,6 +1,5 @@
-import { createContext, useEffect, useRef } from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDebounce } from "react-use";
 
 export const GlobalContext = createContext(null);
@@ -24,23 +23,23 @@ export default function GlobalState({ children }) {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem("theme") || "";
   });
- 
+
   const [favorite, setFavorite] = useState(() => {
     const saved = localStorage.getItem("favoriteMovies");
     return saved ? JSON.parse(saved) : [];
   });
+
   const [debounce, setDebounce] = useState("");
   const input = useRef(null);
   const ButtonRef = useRef(null);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
   useDebounce(() => setDebounce(searchTerm), 1500, [searchTerm]);
 
-  const search = useNavigate();
   const API_BASE_URL = "https://api.themoviedb.org/3";
   const myApi = import.meta.env.VITE_API_KEY;
-
-  const url = searchTerm
-    ? `${API_BASE_URL}/search/movie?include_adult=false&language=en-US&page=${page}&query=${searchTerm}`
-    : `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`;
 
   const options = {
     method: "GET",
@@ -49,22 +48,23 @@ export default function GlobalState({ children }) {
       Authorization: `Bearer ${myApi}`,
     },
   };
-  
-  
 
+  // ✅ Move ScrollToTop ABOVE return
   const ScrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   };
 
-  const fetchMovies = async () => {
+  // ✅ Fix fetchMovies to accept dynamic page
+  const fetchMovies = async (pageNum = 1) => {
     try {
       setLoading(true);
       setError(null);
-      const response = await fetch(url, options);
+
+      const apiUrl = searchTerm
+        ? `${API_BASE_URL}/search/movie?include_adult=false&language=en-US&page=${pageNum}&query=${searchTerm}`
+        : `${API_BASE_URL}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${pageNum}&sort_by=popularity.desc`;
+
+      const response = await fetch(apiUrl, options);
       const json = await response.json();
 
       if (!json.results || json.results.length === 0) {
@@ -74,7 +74,6 @@ export default function GlobalState({ children }) {
         setMovies(json.results);
         setError("");
         setTotalPages(json.total_pages);
-        search("/");
       }
     } catch (err) {
       console.error("Fetch error:", err);
@@ -84,32 +83,55 @@ export default function GlobalState({ children }) {
     }
   };
 
+  // ✅ Sync URL param to state
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const pageParam = parseInt(params.get("page") || "1", 10);
+    if (pageParam !== page) {
+      setPage(pageParam);
+    }
+  }, [location.search]);
+
+  // ✅ Update URL when page changes
+  const updatePageInURL = (newPage) => {
+    setPage(newPage);
+    navigate(`/?page=${newPage}`);
+  };
+
+  function NextPage() {
+    if (page < totalPages) {
+      updatePageInURL(page + 1);
+    }
+  }
+
+  function previousPage() {
+    if (page > 1) {
+      updatePageInURL(page - 1);
+    }
+  }
+
+  function goToPage(p) {
+    updatePageInURL(p);
+  }
+
   function ClickHome() {
-    fetchMovies();
+    fetchMovies(1);
     setSearchTerm("");
     setPage(1);
     setActiveCategoryId(0);
+    navigate("/?page=1");
   }
 
- const fetchCategories = async () => {
-  const urlCt = `${API_BASE_URL}/genre/movie/list?language=en`;
-  try {
-    const data = await fetch(urlCt, options);
-    if (!data.ok) {
-     
-      const errorResponse = await data.json();
-      console.error("API error:", errorResponse.status_message);
-      setCategories([]); 
-      return;
+  const fetchCategories = async () => {
+    const urlCt = `${API_BASE_URL}/genre/movie/list?language=en`;
+    try {
+      const data = await fetch(urlCt, options);
+      const response = await data.json();
+      setCategories(response.genres || []);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
     }
-    const response = await data.json();
-    setCategories(response.genres || []);
-  } catch (error) {
-    console.error("Error fetching categories:", error);
-    setCategories([]); 
-  }
-};
-
+  };
 
   const fetchMoviesByCategory = async (genreId) => {
     const urlMovies = `${API_BASE_URL}/discover/movie?with_genres=${genreId}&language=en`;
@@ -118,8 +140,7 @@ export default function GlobalState({ children }) {
       const data = await fetch(urlMovies, options);
       const response = await data.json();
       setLoading(false);
-      setPage(1);
-      search("/");
+      updatePageInURL(1);
       setMovies(response.results);
     } catch (error) {
       console.error("Error fetching movies:", error);
@@ -160,25 +181,6 @@ export default function GlobalState({ children }) {
     setScrollPage((howMuchScroll / height) * 100);
   }
 
-  function NextPage() {
-    if (page < totalPages) {
-      setPage((prevPage) => prevPage + 1);
-      ScrollToTop();
-    }
-  }
-
-  function previousPage() {
-    if (page > 1) {
-      setPage((prevPage) => prevPage - 1);
-      ScrollToTop();
-    }
-  }
-
-  function goToPage(p) {
-    setPage(p);
-    ScrollToTop();
-  }
-
   useEffect(() => {
     window.addEventListener("scroll", handleScrollPage);
     return () => {
@@ -194,16 +196,19 @@ export default function GlobalState({ children }) {
     localStorage.setItem("favoriteMovies", JSON.stringify(favorite));
   }, [favorite]);
 
+  // ✅ Refetch movies on page or search change
   useEffect(() => {
-    fetchMovies();
+    fetchMovies(page);
   }, [debounce, page]);
 
   useEffect(() => {
     fetchCategories();
   }, []);
+
   useEffect(() => {
     localStorage.setItem("theme", theme);
   }, [theme]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -213,7 +218,6 @@ export default function GlobalState({ children }) {
         movies,
         setLoading,
         loading,
-
         API_BASE_URL,
         myApi,
         options,
