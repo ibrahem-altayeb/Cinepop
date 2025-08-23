@@ -19,11 +19,12 @@ const App = () => {
     >
       <Navbar />
       <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/Favorites" element={<Favorites />} />
-        <Route path="/movie/:id" element={<Details />} />
-      </Routes>
+     <Routes>
+  <Route path="/" element={<Home />} />
+  <Route path="/favorites" element={<Favorites />} />
+  <Route path="/movie/:id" element={<Details />} />
+  <Route path="/favorites/:id" element={<Details />} />
+</Routes>
     </div>
   );
 };

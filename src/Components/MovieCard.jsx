@@ -1,12 +1,13 @@
-
 import { Link } from "react-router-dom";
 import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import { useContext } from "react";
 import { GlobalContext } from "./Context";
 import { AiFillStar } from "react-icons/ai";
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, fromFavorites = false }) => {
   const { favorite, AddOrRemoveMovie } = useContext(GlobalContext);
+
+  const detailPath = fromFavorites ? `/favorites/${movie.id}` : `/movie/${movie.id}`;
 
   return (
     <div className="w-full max-w-[240px] mx-auto">
@@ -16,11 +17,10 @@ const MovieCard = ({ movie }) => {
             hover:-translate-y-2 hover:scale-[1.02] 
             hover:border-purple-500 
              shadow-[0_4px_12px_rgba(168,85,247,0.5)]
-  dark:shadow-[0_2px_8px_rgba(168,85,247,0.25)]
-  hover:shadow-[0_6px_20px_rgba(168,85,247,0.7)]
-  dark:hover:shadow-[0_4px_16px_rgba(168,85,247,0.45)]">
-
-        
+             dark:shadow-[0_2px_8px_rgba(168,85,247,0.25)]
+             hover:shadow-[0_6px_20px_rgba(168,85,247,0.7)]
+             dark:hover:shadow-[0_4px_16px_rgba(168,85,247,0.45)]"
+      >
         <div className="flex justify-between items-center">
           <div
             className="cursor-pointer text-purple-400 hover:text-purple-600 transition duration-300"
@@ -40,8 +40,7 @@ const MovieCard = ({ movie }) => {
           </span>
         </div>
 
-       
-        <Link to={`/movie/${movie.id}`}>
+        <Link to={detailPath}>
           <div className="rounded-lg overflow-hidden aspect-[2/3] bg-gray-100">
             <img
               src={
@@ -58,14 +57,11 @@ const MovieCard = ({ movie }) => {
             {movie.title}
           </h1>
 
-        
-        <div className="flex justify-center mt-2">
-  <p className="inline-block bg-purple-600 text-white dark:text-white/75  px-3 py-1 rounded-md text-xs font-medium text-center uppercase tracking-wider hover:bg-purple-700 transition whitespace-nowrap">
-    More Details
-  </p>
-</div>
-
-
+          <div className="flex justify-center mt-2">
+            <p className="inline-block bg-purple-600 text-white dark:text-white/75 px-3 py-1 rounded-md text-xs font-medium text-center uppercase tracking-wider hover:bg-purple-700 transition whitespace-nowrap">
+              More Details
+            </p>
+          </div>
         </Link>
       </div>
     </div>
