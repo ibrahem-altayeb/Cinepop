@@ -140,9 +140,7 @@ export default function GlobalState({ children }) {
     setSearchTerm(term);
       setPage(1);
     setActiveNav(0);
-  //   if (location.pathname !== "/movies") {
-  //   navigate("/");
-  // }
+    navigate("/")
   };
 
   const AddOrRemoveMovie = (movie) => {
