@@ -20,9 +20,9 @@ const App = () => {
       <Navbar />
       <ScrollToTop />
       <Routes>
-        {/* Redirect from / to /movies */}
-        <Route path="/" element={<Navigate to="/movies" replace />} />
-        <Route path="/movies" element={<Home />} />
+       
+        {/* <Route path="/" element={<Navigate to="/movies" replace />} /> */}
+        <Route path="/" element={<Home />} />
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/movie/:id" element={<Details />} />
         <Route path="/favorites/:id" element={<Details />} />
