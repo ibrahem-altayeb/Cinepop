@@ -14,6 +14,7 @@ const NavLinks = ({ isMobile = false, onLinkClick }) => {
     activeNav,
     ScrollToTop,
     ClickHome,
+    ClickFavorite
   } = useContext(GlobalContext);
 
   const handleClick = (index, shouldClose = true) => {
@@ -73,7 +74,10 @@ const NavLinks = ({ isMobile = false, onLinkClick }) => {
 
       <NavLink to="/favorites">
         <li
-          onClick={() => handleClick(2)}
+          onClick={() =>{
+handleClick(2);
+             ClickFavorite()
+          }  }
           className={`relative group px-4 py-2 ${commonClasses} ${
       activeNav === 2
         ? "bg-purple-100 text-purple-700"

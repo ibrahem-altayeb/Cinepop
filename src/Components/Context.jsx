@@ -107,7 +107,10 @@ export default function GlobalState({ children }) {
     setActiveCategoryId(0);
     navigate("/?page=1");
   };
-
+  const ClickFavorite = () => {
+    setSearchTerm("");
+   setActiveCategoryId(0);
+  };
   const fetchCategories = async () => {
     try {
       const urlCt = `${API_BASE_URL}/genre/movie/list?language=en`;
@@ -135,7 +138,11 @@ export default function GlobalState({ children }) {
 
   const updateSearchTerm = (term) => {
     setSearchTerm(term);
-    setPage(1);
+      setPage(1);
+    setActiveNav(0);
+    if (location.pathname !== "/movies") {
+    navigate("/");
+  }
   };
 
   const AddOrRemoveMovie = (movie) => {
@@ -234,6 +241,7 @@ export default function GlobalState({ children }) {
         setActiveCategoryId,
         activeNav,
         setActiveNav,
+        ClickFavorite,
         openToggle,
         setOpenToggle,
       }}
