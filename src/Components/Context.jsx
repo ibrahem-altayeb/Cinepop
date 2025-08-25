@@ -110,6 +110,7 @@ export default function GlobalState({ children }) {
   const ClickFavorite = () => {
     setSearchTerm("");
    setActiveCategoryId(0);
+   navigate("/favorites");
   };
   const fetchCategories = async () => {
     try {
