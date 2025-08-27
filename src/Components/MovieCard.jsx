@@ -40,7 +40,7 @@ const MovieCard = ({ movie, fromFavorites = false }) => {
           </span>
         </div>
 
-        <Link to={"/movie/:id"}>
+        <Link to={`/movie/${movie.id}`}>
           <div className="rounded-lg overflow-hidden aspect-[2/3] bg-gray-100">
             <img
               src={
