@@ -90,6 +90,24 @@ handleClick(2);
 
         </li>
       </NavLink>
+      <NavLink to="/History">
+        <li
+          onClick={() =>{
+handleClick(3);
+             ClickFavorite()
+          }  }
+          className={`relative group px-4 py-2 ${commonClasses} ${
+      activeNav === 3
+        ? "bg-purple-100 text-purple-700"
+        : "text-purple-400 hover:text-purple-700"
+    }`}
+        >
+          {isMobile && <BsBookmarkHeartFill className="text-xl" />}
+          History
+          <div className="hidden lg:block absolute bottom-[-17px] left-1/2 -translate-x-1/2 h-[2px] w-full bg-purple-700 origin-center scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 transition-all duration-300 ease-in-out" />
+
+        </li>
+      </NavLink>
     </ul>
   );
 };

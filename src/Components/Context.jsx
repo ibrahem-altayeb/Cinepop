@@ -1,7 +1,9 @@
 import { createContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDebounce } from "react-use";
-// import { UpdateSearchCount } from "../appwrite";
+
+import { HistoryMovies } from "../appwrite";
+import { UpdateSearchCount } from "../appwrite";
 
 export const GlobalContext = createContext(null);
 
@@ -29,6 +31,7 @@ export default function GlobalState({ children }) {
     const saved = localStorage.getItem("favoriteMovies");
     return saved ? JSON.parse(saved) : [];
   });
+  const [historyMovie , setHistoryMovie] = useState([])
   const [debounce, setDebounce] = useState("");
 
   const input = useRef(null);
@@ -67,9 +70,12 @@ export default function GlobalState({ children }) {
         setTotalPages(1);
       } else {
         setMovies(json.results);
-        // if(query && json.results > 0) {
-        //   await UpdateSearchCount(query , json.results[0])
-        // }
+        if(searchTerm && json.results.length > 0) {
+          await UpdateSearchCount(searchTerm, json.results[0])
+        }else{
+          console.log(error); 
+        }
+      
         setError("");
         setTotalPages(json.total_pages);
       }
@@ -81,6 +87,15 @@ export default function GlobalState({ children }) {
     }
   };
 
+  const loadHistoryMovie = async () =>{
+     try{
+const movie = await HistoryMovies()
+    setHistoryMovie(movie)
+     }catch(error){
+      console.log(error);
+      
+     }
+  }
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const pageParam = parseInt(params.get("page") || "1", 10);
@@ -88,7 +103,9 @@ export default function GlobalState({ children }) {
       setPage(pageParam);
     }
   }, [location.search]);
-
+useEffect(()=>{
+loadHistoryMovie()
+}, [])
   const updatePageInURL = (newPage) => {
     setPage(newPage);
     navigate(`/?page=${newPage}`);
@@ -247,6 +264,7 @@ export default function GlobalState({ children }) {
         ClickFavorite,
         openToggle,
         setOpenToggle,
+        historyMovie
       }}
     >
       {children}

@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { GlobalContext } from "./Components/Context";
 import "./scrollbar.css";
 import ScrollToTop from "./Components/ScrollToTop";
+import History from "./Pages/History";
 
 const App = () => {
   const { theme } = useContext(GlobalContext);
@@ -22,6 +23,7 @@ const App = () => {
       <Routes>   
         <Route path="/" element={<Home />} />
         <Route path="/favorites" element={<Favorites />} />
+        <Route path="/History" element={<History />} />
         <Route path="/movie/:id" element={<Details />} />
       </Routes>
     </div>
