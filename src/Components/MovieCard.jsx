@@ -7,7 +7,7 @@ import { AiFillStar } from "react-icons/ai";
 const MovieCard = ({ movie, fromFavorites = false }) => {
   const { favorite, AddOrRemoveMovie } = useContext(GlobalContext);
 
-  const detailPath = fromFavorites ? `/favorites/${movie.id}` : `/movie/${movie.id}`;
+  // const detailPath = fromFavorites ? `/favorites/${movie.id}` : `/movie/${movie.id}`;
 
   return (
     <div className="w-full max-w-[240px] mx-auto">
@@ -40,7 +40,7 @@ const MovieCard = ({ movie, fromFavorites = false }) => {
           </span>
         </div>
 
-        <Link to={detailPath}>
+        <Link to={"/movie/:id"}>
           <div className="rounded-lg overflow-hidden aspect-[2/3] bg-gray-100">
             <img
               src={

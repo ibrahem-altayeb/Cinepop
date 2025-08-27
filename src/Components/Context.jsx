@@ -1,6 +1,7 @@
 import { createContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDebounce } from "react-use";
+// import { UpdateSearchCount } from "../appwrite";
 
 export const GlobalContext = createContext(null);
 
@@ -66,6 +67,9 @@ export default function GlobalState({ children }) {
         setTotalPages(1);
       } else {
         setMovies(json.results);
+        // if(query && json.results > 0) {
+        //   await UpdateSearchCount(query , json.results[0])
+        // }
         setError("");
         setTotalPages(json.total_pages);
       }
