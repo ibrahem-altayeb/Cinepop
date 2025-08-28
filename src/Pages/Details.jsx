@@ -21,7 +21,8 @@ const Details = () => {
     imgVisible,
   } = useContext(GlobalContext);
 
-  const { id } = useParams();
+  const  {id}  = useParams();
+
   const url = `${API_BASE_URL}/movie/${id}`;
   const navigate = useNavigate();
 
