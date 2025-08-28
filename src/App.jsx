@@ -7,7 +7,8 @@ import { useContext } from "react";
 import { GlobalContext } from "./Components/Context";
 import "./scrollbar.css";
 import ScrollToTop from "./Components/ScrollToTop";
-import History from "./Pages/History";
+
+import History from './Pages/History';
 
 const App = () => {
   const { theme } = useContext(GlobalContext);
