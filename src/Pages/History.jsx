@@ -5,7 +5,7 @@ import { Circles } from "react-loader-spinner";
 
 const History = () => {
   const { historyMovie, loading } = useContext(GlobalContext);
-console.log(historyMovie);
+  console.log(historyMovie);
 
   const scrollRef = useRef(null);
   const scrollAmount = 250;
@@ -33,7 +33,7 @@ console.log(historyMovie);
             visible={true}
           />
         </div>
-      ) : historyMovie.length === 0 ? (
+      ) : !historyMovie || historyMovie.length === 0 ? (
         <div className="flex justify-center items-center h-screen px-4 placeWords">
           <p className="text-2xl lg:text-4xl text-purple-400 font-bold font-serif italic text-center">
             You haven't searched for any movies yet.
@@ -41,7 +41,6 @@ console.log(historyMovie);
         </div>
       ) : (
         <>
-          {/* Left Scroll Button */}
           <button
             onClick={scrollLeft}
             className="absolute left-[-24px] lg:left-0 top-1/2 -translate-y-1/2 z-10 px-3 py-2 rounded-full shadow-md text-purple-500 hover:text-purple-600 transition duration-300 ease-in-out cursor-pointer"
@@ -49,21 +48,18 @@ console.log(historyMovie);
             <i className="fa-solid fa-chevron-left lg:text-6xl text-5xl"></i>
           </button>
 
-          {/* History Section */}
           <section className="history">
-         <h2
-  className="mt-3 whitespace-nowrap font-[Bebas Neue] italic tracking-wider text-transparent text-sm lg:text-4xl
-             truncate transition"
->
-  <span className="dark:hidden" style={{ WebkitTextStroke: "1px black" }}>
-    Recently, you searched for these movies:
-  </span>
-  <span className="hidden dark:inline" style={{ WebkitTextStroke: "1px white" }}>
-    Recently, you searched for these movies:
-  </span>
-</h2>
-
-
+            <h2
+              className="mt-3 whitespace-nowrap font-[Bebas Neue] italic tracking-wider text-transparent text-sm lg:text-4xl
+                         truncate transition"
+            >
+              <span className="dark:hidden" style={{ WebkitTextStroke: "1px black" }}>
+                Recently, you searched for these movies:
+              </span>
+              <span className="hidden dark:inline" style={{ WebkitTextStroke: "1px white" }}>
+                Recently, you searched for these movies:
+              </span>
+            </h2>
 
             <ul ref={scrollRef}>
               {historyMovie.map((movie, index) => (
@@ -78,7 +74,6 @@ console.log(historyMovie);
             </ul>
           </section>
 
-          {/* Right Scroll Button */}
           <button
             onClick={scrollRight}
             className="absolute right-[-24px] lg:right-0 top-1/2 -translate-y-1/2 z-10 px-3 py-2 rounded-full shadow-md text-purple-500 hover:text-purple-600 transition duration-300 ease-in-out cursor-pointer"
