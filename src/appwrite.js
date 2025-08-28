@@ -45,7 +45,7 @@ export const HistoryMovies = async () => {
       DATABASE_ID,
       COLLECTION_ID,
       [
-        Query.limit(10),
+        Query.limit(50),
         Query.orderDesc("count")
       ]
     );

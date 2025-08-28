@@ -157,13 +157,21 @@ loadHistoryMovie()
       console.error("Error fetching movies:", error);
     }
   };
-
-  const updateSearchTerm = (term) => {
+const updateSearchTerm = (term) => {
+  // ❗ Check BEFORE updating state
+  if (activeNav === 1) {
     setSearchTerm(term);
-      setPage(1);
-    setActiveNav(0);
-    navigate("/")
-  };
+    setPage(1);
+    return;
+  }
+
+  // ✅ Now safe to update everything
+  setSearchTerm(term);
+  setPage(1);
+  setActiveNav(0);
+  navigate("/");
+};
+
 
   const AddOrRemoveMovie = (movie) => {
     const copy = [...favorite];
