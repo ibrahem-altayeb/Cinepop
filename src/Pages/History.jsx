@@ -129,7 +129,7 @@ export default function History() {
             <ul ref={scrollRef} className="flex gap-4 overflow-x-auto p-4">
               {historyMovie.map((movie, index) => (
                 <li key={movie.$id} className="flex-shrink-0 w-36">
-                  <p className="text-sm text-center mb-1 font-semibold text-purple-500">
+                  <p className="text-sm text-center mb-1 font-semibold ">
                     {index + 1}
                   </p>
                   <img
