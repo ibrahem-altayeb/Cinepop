@@ -77,14 +77,15 @@ const Details = () => {
   return (
     <div className="relative grid lg:grid-cols-2 grid-cols-1 gap-10 text-white container mx-auto lg:p-20">
       {imgVisible && (
-        <div className="h-13 w-13 animate-img-movie overflow-hidden group rounded-sm absolute lg:right-30 lg:-translate-y-6">
-          <img
-            src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
-            alt={details.title}
-            className="w-full h-auto object-cover block duration-300"
-          />
-        </div>
-      )}
+  <div className="hidden xl:flex h-13 w-13 animate-img-movie overflow-hidden group rounded-sm absolute lg:right-60 lg:-translate-y-6">
+    <img
+      src={`https://image.tmdb.org/t/p/w500${details.poster_path}`}
+      alt={details.title}
+      className="w-full h-auto object-cover block duration-300"
+    />
+  </div>
+)}
+
 
       <div className="h-96 overflow-hidden group rounded-2xl bg-transparent lg:mt-0 mt-4">
         <img
