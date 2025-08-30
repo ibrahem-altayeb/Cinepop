@@ -79,10 +79,10 @@ export default function GlobalState({ children }) {
         setMovies(json.results);
         setTotalPages(json.total_pages);
 
-        // ✅ Log history only if search
+       
         if (searchTerm && json.results.length > 0) {
           await UpdateSearchCount(searchTerm, json.results[0]);
-          await loadHistoryMovie(); // Refresh history
+          await loadHistoryMovie(); 
         }
       }
     } catch (err) {
@@ -96,7 +96,6 @@ export default function GlobalState({ children }) {
   const loadHistoryMovie = async () => {
     try {
       const history = await HistoryMovies();
-      console.log("✅ Loaded history:", history);
       setHistoryMovie(history);
     } catch (err) {
       console.error("Error loading history:", err);

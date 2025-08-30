@@ -1,241 +1,6 @@
-// import { useContext } from "react";
-// import { GlobalContext } from "./Context";
-// import { NavLink } from "react-router-dom";
-// import { LuSun, LuMoon } from "react-icons/lu";
-// import Categories from "../Pages/Categories";
-// import { IoMenuOutline, IoHomeOutline } from "react-icons/io5";
-// import { RxCross1 } from "react-icons/rx";
-// import { BsBookmarkHeartFill } from "react-icons/bs";
-// import { FaSortDown } from "react-icons/fa";
-// import { VscHistory } from "react-icons/vsc";
-
-// const NavLinks = ({ isMobile = false, onLinkClick }) => {
-//   const {
-//     setActiveNav,
-//     activeNav,
-//     ScrollToTop,
-//     ClickHome,
-//     ClickFavorite
-//   } = useContext(GlobalContext);
-
-//   const handleClick = (index, shouldClose = true) => {
-//     setActiveNav(index);
-//     if (onLinkClick && shouldClose) {
-//       onLinkClick();
-//     }
-//   };
-
-//   const commonClasses = "flex items-center gap-2 font-bold px-3 py-2 rounded";
-
-//   return (
-//     <ul
-//       className={`flex relative ${
-//         isMobile
-//           ? "flex-col gap-5 mb-10 text-purple-400"
-//           : "items-center gap-5 text-purple-400"
-//       }`}
-//     >
-//       <NavLink to="/" onClick={ClickHome}>
-//   <li
-//     onClick={() => handleClick(0)}
-//     className={`relative group px-4 py-2 ${commonClasses} ${
-//       activeNav === 0
-//         ? "bg-purple-100 text-purple-700"
-//         : "text-purple-400 hover:text-purple-700"
-//     }`}
-//   >
-//     {isMobile && <IoHomeOutline className="text-xl" />}
-//     Home
-
-//     {/* Full-width underline, only on lg and up */}
-//    <div className="hidden lg:block absolute bottom-[-17px] left-1/2 -translate-x-1/2 h-[2px] w-full bg-purple-700 origin-center scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 transition-all duration-300 ease-in-out" />
-
-//   </li>
-// </NavLink>
-
-
-//       <li
-//         onClick={() => handleClick(1, false)}
-//         className={`relative group px-4 py-2 ${commonClasses} ${
-//       activeNav === 1
-//         ? "bg-purple-100 text-purple-700"
-//         : "text-purple-400 hover:text-purple-700"
-//     }`}
-//       >
-//         {isMobile && <FaSortDown className="text-xl" />}
-//         <Categories
-//           onSelect={(category) => {
-//             handleClick(1, true);
-//             ScrollToTop();
-//           }}
-//         />
-//        <div className="hidden lg:block absolute bottom-[-17px] left-1/2 -translate-x-1/2 h-[2px] w-full bg-purple-700 origin-center scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 transition-all duration-300 ease-in-out" />
-
-//       </li>
-
-//       <NavLink to="/favorites">
-//         <li
-//           onClick={() =>{
-// handleClick(2);
-//              ClickFavorite()
-//           }  }
-//           className={`relative group px-4 py-2 ${commonClasses} ${
-//       activeNav === 2
-//         ? "bg-purple-100 text-purple-700"
-//         : "text-purple-400 hover:text-purple-700"
-//     }`}
-//         >
-//           {isMobile && <BsBookmarkHeartFill className="text-xl" />}
-//           Favorites
-//           <div className="hidden lg:block absolute bottom-[-17px] left-1/2 -translate-x-1/2 h-[2px] w-full bg-purple-700 origin-center scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 transition-all duration-300 ease-in-out" />
-
-//         </li>
-//       </NavLink>
-//       <NavLink to="/History">
-//         <li
-//           onClick={() =>{
-// handleClick(3);
-//              ClickFavorite()
-//           }  }
-//           className={`relative group px-4 py-2 ${commonClasses} ${
-//       activeNav === 3
-//         ? "bg-purple-100 text-purple-700"
-//         : "text-purple-400 hover:text-purple-700"
-//     }`}
-//         >
-//            {isMobile && <VscHistory className="text-xl" />}
-//           History
-//           <div className="hidden lg:block absolute bottom-[-17px] left-1/2 -translate-x-1/2 h-[2px] w-full bg-purple-700 origin-center scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 transition-all duration-300 ease-in-out" />
-
-//         </li>
-//       </NavLink>
-//     </ul>
-//   );
-// };
-
-// const Navbar = () => {
-//   const {
-//     searchTerm,
-//     input,
-//     setTheme,
-//     theme,
-//     ClickHome,
-//     updateSearchTerm,
-//     openToggle,
-//     setOpenToggle,
-//     setActiveNav,
-//   } = useContext(GlobalContext);
-
-//   return (
-//     <div className="w-full shadow-sm">
-//       <div className="container mx-auto flex items-center justify-between p-4 lg:flex-row flex-col lg:gap-5">
-//         <div className="flex items-center justify-between w-full lg:w-auto">
-//           <h1 className="text-2xl lg:text-3xl font-extrabold text-purple-400 dark:text-purple-500 italic">
-//             <NavLink
-//               to="/"
-//               onClick={() => {
-//                 ClickHome();
-//                 setActiveNav(0);
-//               }}
-//             >
-//               Cine<span className="text-purple-600">pop</span>
-//             </NavLink>
-//           </h1>
-//           <button
-//             className="lg:hidden text-purple-500 text-3xl"
-//             onClick={() => setOpenToggle(!openToggle)}
-//           >
-//             {openToggle ? <RxCross1 /> : <IoMenuOutline />}
-//           </button>
-//         </div>
-
-//         <div className="mt-3 lg:mt-0 w-full lg:w-auto flex justify-center">
-//           <input
-//             ref={input}
-//             type="text"
-//             value={searchTerm}
-//             onChange={(e) => updateSearchTerm(e.target.value)}
-//             placeholder="Search for movies..."
-//             className="w-full lg:w-96 p-2 border border-purple-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 tracking-wider placeholder:text-purple-400 text-purple-800"
-//           />
-//         </div>
-
-//         <div className="hidden lg:flex items-center gap-5 font-bold">
-//           <NavLinks />
-//           <div className="flex items-center gap-2 ml-4">
-//             <button
-//               onClick={() => setTheme("")}
-//               className="text-purple-500 hover:text-purple-700 dark:text-zinc-400 dark:hover:text-white transition-colors duration-200"
-//             >
-//               <LuSun />
-//             </button>
-//             <button
-//               onClick={() => setTheme("dark")}
-//               className="text-purple-500 hover:text-purple-700 dark:text-zinc-400 dark:hover:text-white transition-colors duration-200"
-//             >
-//               <LuMoon />
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-
-//       {/* MOBILE MENU */}
-//       <div
-//         className={`lg:hidden fixed top-0 left-0 h-full w-64 bg-white dark:bg-zinc-800 z-50 shadow-lg transform transition-transform duration-300 ${
-//           openToggle ? "translate-x-0" : "-translate-x-full"
-//         }`}
-//       >
-//         <div className="flex flex-col justify-between h-full p-5 pt-10">
-//           <div>
-//             <h1 className="text-2xl font-extrabold text-purple-400 dark:text-purple-500 italic mb-5">
-//               <NavLink
-//                 to="/"
-//                 onClick={() => {
-//                   ClickHome();
-//                   setActiveNav(0);
-//                 }}
-//               >
-//                 Cine<span className="text-purple-600">pop</span>
-//               </NavLink>
-//             </h1>
-//           </div>
-
-//           <div className="flex-1 flex flex-col justify-center">
-//             <NavLinks
-//               isMobile={true}
-//               onLinkClick={() => setOpenToggle(false)}
-//             />
-//           </div>
-
-//           {/* MOBILE THEME TOGGLE BUTTON */}
-//           <div className="flex gap-3">
-//             <button
-//               onClick={() =>
-//                 setTheme(theme === "dark" ? "" : "dark")
-//               }
-//               className="flex items-center gap-2 text-purple-500 hover:text-purple-700 dark:text-zinc-400 dark:hover:text-white transition-colors duration-200"
-//             >
-//               {theme === "dark" ? <LuSun /> : <LuMoon />}
-//               Theme
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-
-//       {openToggle && (
-//         <div
-//           className="fixed inset-0 bg-opacity-30 z-40 lg:hidden"
-//           onClick={() => setOpenToggle(false)}
-//         ></div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Navbar;
 import { useContext, useEffect } from "react";
 import { GlobalContext } from "./Context";
-import { NavLink, useLocation } from "react-router-dom"; // <-- added useLocation here
+import { NavLink, useLocation } from "react-router-dom"; 
 import { LuSun, LuMoon } from "react-icons/lu";
 import Categories from "../Pages/Categories";
 import { IoMenuOutline, IoHomeOutline } from "react-icons/io5";
@@ -282,7 +47,6 @@ const NavLinks = ({ isMobile = false, onLinkClick }) => {
           {isMobile && <IoHomeOutline className="text-xl" />}
           Home
 
-          {/* Full-width underline, only on lg and up */}
           <div className="hidden lg:block absolute bottom-[-17px] left-1/2 -translate-x-1/2 h-[2px] w-full bg-purple-700 origin-center scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100 transition-all duration-300 ease-in-out" />
         </li>
       </NavLink>
@@ -357,10 +121,8 @@ const Navbar = () => {
     setActiveNav,
   } = useContext(GlobalContext);
 
-  // <--- useLocation here
   const location = useLocation();
 
-  // <--- Sync activeNav with current URL path on mount and on path change
   useEffect(() => {
     switch (location.pathname) {
       case "/":
@@ -430,7 +192,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* MOBILE MENU */}
+      
       <div
         className={`lg:hidden fixed top-0 left-0 h-full w-64 bg-white dark:bg-zinc-800 z-50 shadow-lg transform transition-transform duration-300 ${
           openToggle ? "translate-x-0" : "-translate-x-full"
@@ -457,8 +219,6 @@ const Navbar = () => {
               onLinkClick={() => setOpenToggle(false)}
             />
           </div>
-
-          {/* MOBILE THEME TOGGLE BUTTON */}
           <div className="flex gap-3">
             <button
               onClick={() =>
