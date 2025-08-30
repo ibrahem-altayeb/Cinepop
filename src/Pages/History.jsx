@@ -57,7 +57,8 @@ export default function History() {
                   <img
                     src={movie.poster_url || "/no-movie.png"}
                     alt={movie.searchTerm || "Movie"}
-                    className="w-full h-auto rounded-lg shadow-lg object-cover transition duration-300"
+                    className="w-full h-auto rounded-lg shadow-lg object-cover transition duration-300 transition-all duration-300 transform 
+            hover:-translate-y-2 hover:scale-[1.02]"
                     />
                     </Link>
                 </li>

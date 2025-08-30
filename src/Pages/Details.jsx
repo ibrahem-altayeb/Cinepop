@@ -22,7 +22,7 @@ const Details = () => {
   } = useContext(GlobalContext);
 
   const  {id}  = useParams();
-  console.log({id});
+ 
   
 
   const url = `${API_BASE_URL}/movie/${id}`;
